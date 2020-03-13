@@ -13,6 +13,7 @@ from prometheus_client import start_http_server, Gauge
 
 token = os.getenv("TOKEN")
 logLevel = os.getenv("LOG", "WARNING")
+interval = os.getenv("INTERVAL", 60)
 
 # Variables
 
@@ -99,4 +100,4 @@ while True:
     else:
         logging.error("edges error: %s", response.content)
 
-    time.sleep(10)
+    time.sleep(interval)

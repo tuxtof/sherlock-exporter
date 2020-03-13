@@ -22,6 +22,8 @@ spec:
           env:
             - name: LOG
               value: INFO
+            - name: INTERVAL
+              value: 60
             - name: TOKEN
               valueFrom:
                 secretKeyRef:
