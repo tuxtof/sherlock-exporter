@@ -1,8 +1,8 @@
 # Sherlock Exporter
 
-The Prometheus Sherlock Exporter exposes a wide variety of Xi-IoT platform metrics.
+The Prometheus Sherlock Exporter exposes a wide variety of Nutanix Xi IoT platform metrics.
 
-This is the starting point to build beautiful Xi-IoT Grafana Dashboard.
+This is the starting point to build beautiful Xi IoT Grafana Dashboard.
 
 ![](README.png)
 
