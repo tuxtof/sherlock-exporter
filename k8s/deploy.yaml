@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sherlock-exporter
-          image: registry.gitlab.com/tuxtof/sherlock-exporter:latest
+          image: tuxtof/sherlock-exporter:latest
           ports:
             - name: http-metrics
               containerPort: 8080
