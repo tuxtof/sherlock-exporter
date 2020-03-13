@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sherlock-exporter
+  namespace: sherlock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sherlock-exporter
+  template:
+    metadata:
+      labels:
+        app: sherlock-exporter
+    spec:
+      containers:
+        - name: sherlock-exporter
+          image: registry.gitlab.com/tuxtof/sherlock-exporter:latest
+          ports:
+            - name: http-metrics
+              containerPort: 8080
+          env:
+            - name: LOG
+              value: INFO
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sherlock-config
+                  key: TOKEN
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sherlock-metrics
+  namespace: sherlock
+  labels:
+    app: sherlock-metrics
+spec:
+  selector:
+    app: sherlock-exporter
+  ports:
+    - name: http-metrics
+      port: 8080

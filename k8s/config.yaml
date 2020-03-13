@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sherlock-config
+  namespace: sherlock
+data:
+  TOKEN: XXX
