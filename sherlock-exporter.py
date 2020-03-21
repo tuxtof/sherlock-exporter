@@ -104,7 +104,7 @@ while True:
                     previousItems.remove([name, id, version, ipAddress])
                 except:
                     pass
-        logging.info("label collection to remove: %s", previousItems)
+        logging.debug("label collection to remove: %s", previousItems)
         for item in previousItems:
             totalMemoryKB.remove(*item)
             totalStorageKB.remove(*item)
