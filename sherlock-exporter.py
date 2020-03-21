@@ -13,12 +13,13 @@ from prometheus_client import start_http_server, Gauge
 
 token = os.getenv("TOKEN")
 logLevel = os.getenv("LOG", "WARNING")
-interval = os.getenv("INTERVAL", 60)
+interval = int(os.getenv("INTERVAL", 60))
 
 # Variables
 
 nodeinfo = {}
-
+edgeItems = []
+previousItems = []
 # Configure Log system
 
 numeric_level = getattr(logging, logLevel.upper(), None)
@@ -79,6 +80,7 @@ while True:
 
         edgesList = json.loads(response.text)
         logging.debug(edgesList)
+        edgeItems = []
 
         for edge in edgesList:
             id = edge["id"]
@@ -97,6 +99,19 @@ while True:
                     nodeinfo[id]["memoryFreeKB"])
                 storageFreeKB.labels(name=name, id=id, version=version, ip=ipAddress).set(
                     nodeinfo[id]["storageFreeKB"])
+                edgeItems.append([name, id, version, ipAddress])
+                try:
+                    previousItems.remove([name, id, version, ipAddress])
+                except:
+                    pass
+        logging.info("label collection to remove: %s", previousItems)
+        for item in previousItems:
+            totalMemoryKB.remove(*item)
+            totalStorageKB.remove(*item)
+            cpuUsage.remove(*item)
+            memoryFreeKB.remove(*item)
+            storageFreeKB.remove(*item)
+        previousItems = edgeItems
     else:
         logging.error("edges error: %s", response.content)
 
