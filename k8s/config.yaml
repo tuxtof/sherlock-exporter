@@ -4,4 +4,4 @@ metadata:
   name: sherlock-config
   namespace: sherlock
 data:
-  TOKEN: XXX
+  TOKEN: XXX_IN_BASE64
