@@ -21,9 +21,9 @@ spec:
               containerPort: 8080
           env:
             - name: LOG
-              value: INFO
+              value: "INFO"
             - name: INTERVAL
-              value: 60
+              value: "60"
             - name: TOKEN
               valueFrom:
                 secretKeyRef:
